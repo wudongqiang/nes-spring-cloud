@@ -1,0 +1,35 @@
+server:
+  port: 8762
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8114/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+
+spring:
+  application:
+    name: gate-service
+zuul:
+  ignored-services: '*'
+#  prefix: /api
+  routes:
+    serviceA:
+      path: /feign/a/**
+      serviceId: feign-service
+      stripPrefix: false
+    serviceB:
+      path: /data/b/**
+      serviceId: data-service
+      stripPrefix: false
+
+ribbon:
+  ReadTimeout:  30000
+  ConnectTimeout: 10000
+
+
+
+
+
+

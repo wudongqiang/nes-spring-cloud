@@ -1,0 +1,33 @@
+server:
+  port: 8763
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8114/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    metadata-map:
+      version: 1.0
+
+nes:
+  data: 这是测试值
+
+spring:
+  application:
+    name: feign-service
+  redis:
+    database: 1
+    host: 127.0.0.1
+    port: 6379
+
+feign:
+  hystrix:
+    enabled: true
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 5000
+  OkToRetryOnAllOperations: true
+
+
+
