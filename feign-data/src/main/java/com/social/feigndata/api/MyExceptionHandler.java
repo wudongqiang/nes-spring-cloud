@@ -1,5 +1,7 @@
 package com.social.feigndata.api;
 
+import com.nes.data.ScBaseDataType;
+import com.nes.data.ScResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,8 +17,8 @@ public class MyExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
-    public String errorHandler(Exception ex) {
-        return ex.getMessage();
+    public ScResponse<ScBaseDataType<String>> errorHandler(Exception ex) {
+        return new ScResponse<>(ScBaseDataType.of(ex.getMessage()));
     }
 
 }

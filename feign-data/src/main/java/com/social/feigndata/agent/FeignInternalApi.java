@@ -1,6 +1,7 @@
 package com.social.feigndata.agent;
 
 
+import com.nes.data.ScResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface FeignInternalApi {
 
     @GetMapping("/internal/user/statistics")
-    ResponseEntity<Object> statistics(@RequestParam("regAfterDay") Long regAfterDay,
-                                         @RequestParam("userType") String userType);
+    ScResponse<String> statistics(@RequestParam("regAfterDay") Long regAfterDay,
+                                          @RequestParam("userType") String userType);
 }

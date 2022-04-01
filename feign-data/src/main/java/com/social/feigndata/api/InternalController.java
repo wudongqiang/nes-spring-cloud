@@ -1,5 +1,7 @@
 package com.social.feigndata.api;
 
+import com.nes.data.ScBaseDataType;
+import com.nes.data.ScResponse;
 import com.social.feigndata.agent.DataTestApi;
 import com.social.feigndata.agent.FeignInternalApi;
 import com.social.feigndata.aspect.ScRateLimiter;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/feign/a")
@@ -26,20 +30,19 @@ public class InternalController {
     private DataTestApi dataTestApi;
 
     @GetMapping("/test/yrt/statistics")
-    public String statistics() {
-        ResponseEntity<Object> channel = feignInternalApi.statistics(12L, "CHANNEL");
-        return channel.getBody().toString();
+    public ScResponse<String> statistics() {
+        return feignInternalApi.statistics(12L, "CHANNEL");
     }
 
     @GetMapping("/show")
     @ScRateLimiter(limit = 1, expire = 10)
-    public String show(@RequestParam(required = false) String p) {
+    public ScResponse<ScBaseDataType<String>> show(@RequestParam(required = false) String p) {
         log.info("请求参数：{}", p);
-        return "展示：" + data + "," + p;
+        return new ScResponse<>(ScBaseDataType.of("展示：" + data + "," + p));
     }
 
     @GetMapping("/userInfo")
-    public String userInfo() {
+    public ScResponse<Map<String, String>>  userInfo() {
         log.info("------------userInfo-----------------");
         return dataTestApi.userInfo();
     }

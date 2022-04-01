@@ -1,7 +1,10 @@
 package com.social.feigndata.agent;
 
+import com.nes.data.ScResponse;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 @Component
 public class DataTestApiImpl implements FallbackFactory<DataTestApi> {
@@ -9,8 +12,8 @@ public class DataTestApiImpl implements FallbackFactory<DataTestApi> {
     public DataTestApi create(Throwable cause) {
         return new DataTestApi() {
             @Override
-            public String userInfo() {
-                return "{}";
+            public ScResponse<Map<String, String>> userInfo() {
+                return new ScResponse<>();
             }
         };
     }

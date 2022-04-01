@@ -1,5 +1,7 @@
 package com.nes.data;
 
+import java.util.UUID;
+
 /**
  * @author wdq
  * @date 2018-08-23-上午9:39
@@ -12,6 +14,7 @@ public abstract class ScBaseResponse {
     public ScBaseResponse(String code, String message) {
         this.code = code;
         this.message = message;
+        this.traceId = UUID.randomUUID().toString().replace("-", "");
     }
 
     public String getTraceId() {
